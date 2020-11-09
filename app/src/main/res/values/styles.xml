@@ -1,0 +1,203 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <!--  <item name="secondaryColorVariant">@color/secondaryColor</item>-->
+        <item name="colorOnSecondary">@color/secondaryDarkColor</item>
+
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorWhite</item>
+
+        <item name="colorAccent">@color/secondaryColor</item>
+
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:actionMenuTextColor">@color/primaryTextColor</item>
+
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+
+    </style>
+
+
+    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.NoActionBar">
+
+        <item name="android:windowBackground">@drawable/layer_list_splash_screen</item>
+
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+    // Toolbar
+
+    <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    // TextView Dark
+
+    <style name="NormalTextViewStyleDark" parent="AppTheme">
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="SubHeadingTextViewStyleDark" parent="NormalTextViewStyleDark">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="HeadingTextViewStyleDark" parent="NormalTextViewStyleLight">
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="HeadingTextViewStylePrimary" parent="NormalTextViewStyleLight">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="TextInputLayoutDarkCursor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:colorControlActivated">@color/secondaryColor</item>
+        <item name="hintTextColor">@color/secondaryColor</item>
+        <item name="android:colorControlNormal">@color/primaryTextColor</item>
+        <item name="android:textColorHint">@color/primaryTextColor</item>
+        <item name="boxStrokeColor">@color/secondaryColor</item>
+        <item name="startIconTint">@color/secondaryColor</item>
+        <item name="helperTextTextColor">@color/colorGray</item>
+    </style>
+
+    <style name="TextInputLayoutDarkCursorOld" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:colorControlActivated">@color/secondaryColor</item>
+    </style>
+
+    <style name="TextInputLayoutDark" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextColor">@color/secondaryColor</item>
+        <item name="android:textColorHint">@color/text_input_hint_selector</item>
+        <item name="boxStrokeColor">@color/text_input_box_stroke_dark</item>
+        <item name="startIconTint">@color/text_input_box_stroke_dark</item>
+        <item name="helperTextTextColor">@color/colorWhite</item>
+    </style>
+
+    // TextView Light
+
+    <style name="NormalTextViewStyleLight" parent="AppTheme">
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="SubHeadingTextViewStyleLight" parent="NormalTextViewStyleLight">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HeadingTextViewStyleLight" parent="NormalTextViewStyleLight">
+        <item name="android:textColor">@color/primaryDarkColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+
+    // MaterialButton
+
+    <style name="RedColorButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/colorRed</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="PrimaryColorButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primaryLightColor</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="SecondaryMaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="backgroundTint">@color/secondaryColor</item>
+    </style>
+
+    <style name="OvalMaterialButton" parent="SecondaryMaterialButton">
+        <item name="cornerRadius">20dp</item>
+    </style>
+
+    <style name="SecondaryTextMaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/secondaryColor</item>
+    </style>
+
+    <style name="FieldLabelTVStyle" parent="AppTheme">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="FieldValueTVStyle" parent="AppTheme">
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    //chip custom style
+
+    <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/colorWhite</item>
+        <item name="chipCornerRadius">20dp</item>
+        <item name="chipIconVisible">true</item>
+        <item name="android:checked">true</item>
+        <item name="android:checkable">true</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+
+    //textView lite
+
+    <style name="NormalTextViewStyleLite" parent="AppTheme">
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="SubHeadingTextViewStyleLite" parent="NormalTextViewStyleLite">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="MyCustomTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="android:windowAnimationStyle">@style/MyAnimation.Window</item>
+    </style>
+
+    <style name="MyAnimation.Window" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/item_animation_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/item_animation_fall_down</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="RectangleImageView" parent="">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">1%</item>
+    </style>
+
+</resources>

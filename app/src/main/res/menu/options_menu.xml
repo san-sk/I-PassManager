@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group>
+
+        <item
+            android:id="@+id/backup_restore"
+            android:icon="@drawable/ic_backup_restore_24"
+            android:title="@string/backupandrestore" />
+
+
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_baseline_account_circle_24"
+            android:title="@string/profile" />
+
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="@string/settings" />
+
+    </group>
+</menu>

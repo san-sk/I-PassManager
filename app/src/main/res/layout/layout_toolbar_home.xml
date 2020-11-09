@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.san.ipassmanager.other.CenteredToolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/material_toolbar"
+    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:paddingVertical="10dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    app:contentInsetStartWithNavigation="0dp"
+    app:logo="@mipmap/ic_launcher_round"
+    app:titleTextColor="@color/primaryTextColor"
+    tools:title="@string/app_name_other" />
+
+
+

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.san.ipassmanager.ui.home.HomeFragment"
+        android:label="home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_addCredentialFragment"
+            app:destination="@id/CUCredentialFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_viewCredentialFragment"
+            app:destination="@id/RDCredentialFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_right"
+            app:popExitAnim="@anim/exit_to_left"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_optionsFragment"
+            app:destination="@id/optionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CUCredentialFragment"
+        android:name="com.san.ipassmanager.ui.credentials.CUCredentialFragment"
+        android:label="{purpose}"
+        tools:layout="@layout/fragment_cu_credential">
+        <argument
+            android:name="credential"
+            app:argType="com.san.ipassmanager.room.entity.AllCredentialEntity"
+            app:nullable="true" />
+        <argument
+            android:name="purpose"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/RDCredentialFragment"
+        android:name="com.san.ipassmanager.ui.credentials.RDCredentialFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_rd_credential">
+        <argument
+            android:name="credential"
+            app:argType="com.san.ipassmanager.room.entity.AllCredentialEntity" />
+        <action
+            android:id="@+id/action_viewCredentialFragment_to_addCredentialFragment"
+            app:destination="@id/CUCredentialFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.san.ipassmanager.ui.credentials.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_RDCredentialFragment"
+            app:destination="@id/RDCredentialFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.san.ipassmanager.ui.account.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/fragment_login"/>
+    <fragment
+        android:id="@+id/backupRestoreFragment"
+        android:name="com.san.ipassmanager.ui.backuprestore.BackupRestoreFragment"
+        android:label="BackupRestoreFragment"
+        tools:layout="@layout/fragment_backup_restore">
+        <argument
+            android:name="backup_found"
+            app:argType="boolean" />
+        <argument
+            android:name="action"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_backupRestoreFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <dialog
+        tools:layout="@layout/fragment_options"
+        android:id="@+id/optionsFragment"
+        android:name="com.san.ipassmanager.ui.OptionsFragment"
+        android:label="OptionsFragment" >
+        <action
+            android:id="@+id/action_optionsFragment_to_backupRestoreFragment"
+            app:destination="@id/backupRestoreFragment" />
+        <action
+            android:id="@+id/action_optionsFragment_to_settingsContainerFragment"
+            app:destination="@id/settingsContainerFragment" />
+        <action
+            android:id="@+id/action_optionsFragment_to_loginFragment3"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
+    <fragment
+        android:id="@+id/settingsContainerFragment"
+        android:name="com.san.ipassmanager.ui.settings.SettingsContainerFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings_container" />
+</navigation>

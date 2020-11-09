@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- <item
+         android:contentDescription="@string/nav_app_bar_open_drawer_description"
+         android:title="one" />
+     <item
+         android:contentDescription="@string/nav_app_bar_open_drawer_description"
+         android:title="two" />-->
+
+    <item
+        android:id="@+id/search"
+        android:contentDescription="@string/nav_app_bar_open_drawer_description"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/search"
+        app:showAsAction="ifRoom" />
+
+     <!--<item
+         android:id="@+id/more"
+         android:title="@string/more"
+         android:contentDescription="@string/nav_app_bar_open_drawer_description"
+         app:showAsAction="never"
+         />-->
+</menu>

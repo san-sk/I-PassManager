@@ -1,0 +1,43 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<resources>
+
+    <color name="primaryColor">#131313</color>
+    <color name="primaryLightColor">#393939</color>
+    <color name="primaryDarkColor">#000000</color>
+
+    <color name="secondaryColor">#fe9904</color>
+    <color name="secondaryLightColor">#ffca49</color>
+    <color name="secondaryDarkColor">#c56a00</color>
+
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+
+
+    <!--extra-->
+
+    <color name="textColorBlack">#000</color>
+    <color name="textColorWhite">#FFF</color>
+
+
+    <color name="colorBackground">#383838</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="colorLightGray">#d3d3d3</color>
+    <color name="colorDarkGray">#333333</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorWhiteLowAlpha">#96ffffff</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorBlackHighAlpha">#af000000</color>
+    <color name="colorGreen">#31a322</color>
+    <color name="colorGreenLowAlpha">#9631a322</color>
+    <color name="colorRed">#e51747</color>
+    <color name="colorGray">#757575</color>
+
+
+    <!--    toasty-->
+    <color name="colorInfo">#29B6F6</color>
+    <color name="colorSuccess">#66BB6A</color>
+    <color name="colorWarning">#FFA726</color>
+    <color name="colorError">#EF5350</color>
+
+</resources>

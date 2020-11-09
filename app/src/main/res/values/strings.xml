@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">PasswordManager</string>
+    <string name="search">Search</string>
+    <string name="more">More</string>
+    <string name="app_name_other">i Cred</string>
+    <string name="name">Name</string>
+    <string name="email">EmailId</string>
+    <string name="website">Website</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="mobile">Mobile</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
+    <string name="create">Create</string>
+    <string name="edit">Edit</string>
+    <string name="choose_category">Choose Category</string>
+    <string name="platform_name">Platform Name</string>
+    <string name="ssid_name">SSID Name</string>
+    <string name="device_name">Device Name</string>
+    <string name="skip">Skip</string>
+    <string name="login_helper_text">Login with google to make backup of your data</string>
+    <string name="or">Or</string>
+    <string name="skip_now">Loss of data when you uninstall or clear app data</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="this_pwd_used_for_encrypt">password for encryption</string>
+    <string name="proceed">Proceed</string>
+    <string name="backup">Backup</string>
+    <string name="restore">Restore</string>
+    <string name="backup_found_msg">Backup found in google drive click to restore the data</string>
+    <string name="no_backup_found_msg">No backup was found in google drive click to backup data</string>
+    <string name="password_helper_txt1">If you are an existing user enter the password or if you are new user type new password.</string>
+    <string name="password_helper_txt2">Note: if you forgot password you cannot recover data.</string>
+    <string name="share">Share</string>
+    <string name="backupandrestore"><![CDATA[Backup & Restore]]></string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="home">Home</string>
+    <string name="theme">Theme</string>
+    <string name="notification">Notification</string>
+    <string name="from">From</string>
+    <string name="local">Local</string>
+    <string name="storage">Storage</string>
+    <string name="drive">Drive</string>
+    <string name="to">To</string>
+
+
+    <string-array name="credential_categories">
+        <item>All</item>
+        <item>Email</item>
+        <item>Website</item>
+        <item>Bank</item>
+        <item>Network</item>
+        <item>OTT Platform</item>
+        <item>Device</item>
+        <item>Social Media</item>
+        <item>Others</item>
+    </string-array>
+
+
+    <string-array name="theme_array">
+        <item>System Default</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+</resources>

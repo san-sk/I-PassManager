@@ -1,0 +1,49 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--<PreferenceCategory app:title="@string/messages_header">
+
+        <EditTextPreference
+            app:key="signature"
+            app:title="@string/signature_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="reply"
+            app:entries="@array/reply_entries"
+            app:entryValues="@array/reply_values"
+            app:key="reply"
+            app:title="@string/reply_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>-->
+
+    <PreferenceCategory app:title="General">
+
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_baseline_notifications_24"
+            app:key="Notification"
+            app:summaryOff="You will not be notified"
+            app:summaryOn="You will be notified"
+            app:title="@string/notification" />
+
+
+        <ListPreference
+            app:defaultValue="System Default"
+            app:entries="@array/theme_array"
+            app:entryValues="@array/theme_array"
+            app:icon="@drawable/ic_night_mode"
+            app:key="Theme"
+            app:title="@string/theme"
+            app:useSimpleSummaryProvider="true" />
+
+        <!--<MultiSelectListPreference
+            app:entries="@array/settings_notifications"
+            app:key="notifications"
+            app:summary="Choose how you want to be notified"
+            app:title="Notification preferences" />-->
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
