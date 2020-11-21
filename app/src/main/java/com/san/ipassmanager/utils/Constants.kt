@@ -20,7 +20,7 @@ object Constants {
 
     const val DATABASE_NAME = "credentials.database"
     const val BACKUP_FILE_NAME ="IPass.backup"
-    const val APP_NAME = "PasswordManager"
+    const val APP_NAME = "IPassManager"
     const val THEME = "Theme"
     const val NOTIFICATION = "Notification"
     const val DRAWABLE_RES_ID = "drawable_res_id"

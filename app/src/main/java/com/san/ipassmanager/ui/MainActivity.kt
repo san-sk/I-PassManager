@@ -55,10 +55,9 @@ class MainActivity : AppCompatActivity(), FragmentInterface {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun setProgressBarVisible(shouldProgressBarBeVisible: Boolean) {
 
-        clpb_main.addValueCallback(
+       /* clpb_main.addValueCallback(
             KeyPath("Heart Icon Outlines 2", "**"),
             LottieProperty.COLOR_FILTER,
             {
@@ -67,7 +66,7 @@ class MainActivity : AppCompatActivity(), FragmentInterface {
                     PorterDuff.Mode.SRC_ATOP
                 )
             }
-        )
+        )*/
 
 
         if (shouldProgressBarBeVisible) {

@@ -1,10 +1,24 @@
 package com.san.ipassmanager.ui.credentials
 
+import android.R.attr.label
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Context.CLIPBOARD_SERVICE
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.FileProvider
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +27,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import androidx.palette.graphics.Palette
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.san.ipassmanager.BuildConfig
 import com.san.ipassmanager.R
 import com.san.ipassmanager.databinding.FragmentRdCredentialBinding
 import com.san.ipassmanager.room.entity.AllCredentialEntity
@@ -20,10 +36,13 @@ import com.san.ipassmanager.utils.Constants
 import com.san.ipassmanager.utils.Utils
 import com.san.ipassmanager.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
+import java.io.File
+import java.io.FileOutputStream
 
 
 @AndroidEntryPoint
-class RDCredentialFragment : Fragment() {
+class RDCredentialFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentRdCredentialBinding
 
@@ -62,22 +81,19 @@ class RDCredentialFragment : Fragment() {
         displayCredentials()
 
 
-        binding.bottomAppBar.setNavigationOnClickListener {
-            // Handle navigation icon press
-        }
-
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.delete -> {
                     // Handle search icon press
-                    viewModel.delete(credential)
-                    findNavController().navigateUp()
+                    showConfirmation()
                     true
                 }
-                /* R.id.more -> {
-                     // Handle more item (inside overflow menu) press
-                     true
-                 }*/
+                R.id.share -> {
+                    // Handle more item (inside overflow menu) press
+                    shareCredential(Utils.getImage(binding.cl), args.credential.name)
+
+                    true
+                }
                 else -> false
             }
         }
@@ -126,10 +142,10 @@ class RDCredentialFragment : Fragment() {
 
         binding.ivVcImage.drawable?.toBitmap()?.let { bmp ->
 
-            Palette.from(bmp).generate().lightVibrantSwatch?.let {
+            Palette.from(bmp).generate().darkVibrantSwatch?.let {
 
                 binding.frdToolbar.materialToolbar.setBackgroundColor(
-                    (it.rgb)
+                    (it.bodyTextColor)
                 )
 
             }
@@ -242,4 +258,72 @@ class RDCredentialFragment : Fragment() {
         }
 
     }
+
+
+    private fun copyToClipBoard(text: String) {
+
+        val clipboard = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText(Constants.TAG, text)
+        clipboard.setPrimaryClip(clip)
+
+        if (clip != null) {
+            Toasty.info(requireContext(), "Copied to clipboard", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onClick(v: View?) {
+
+        if (v is TextView) {
+            copyToClipBoard(v.text.toString())
+            Log.e("view", v.text.toString())
+        }
+    }
+
+    private fun shareCredential(bmp: Bitmap, fileName: String) {
+
+        activity?.let {
+
+            try {
+                val file = File(context?.cacheDir, "$fileName.png")
+                val fOut = FileOutputStream(file)
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, fOut)
+                fOut.flush()
+                fOut.close()
+                file.setReadable(true, true)
+                val uri = FileProvider.getUriForFile(
+                    it.applicationContext,
+                    BuildConfig.APPLICATION_ID + ".fileprovider", file
+                )
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.putExtra(Intent.EXTRA_STREAM, uri)
+                intent.type = "image/png"
+                startActivity(Intent.createChooser(intent, "Share Credential via"))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+    private fun showConfirmation() {
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.app_name))
+            .setMessage(resources.getString(R.string.delete_confirmation))
+            .setNegativeButton("") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setNegativeButtonIcon(ResourcesCompat.getDrawable(resources,R.drawable.ic_no,null))
+            .setPositiveButtonIcon(ResourcesCompat.getDrawable(resources,R.drawable.ic_check,null))
+            .setPositiveButton(resources.getString(R.string.yes)) { dialog, which ->
+                dialog.dismiss()
+                viewModel.delete(credential)
+                findNavController().navigateUp()
+            }
+            .show()
+
+    }
+
 }
+

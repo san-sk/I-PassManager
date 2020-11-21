@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PasswordManager</string>
+    <string name="app_name">i Pass</string>
     <string name="search">Search</string>
     <string name="more">More</string>
     <string name="app_name_other">i Cred</string>
@@ -43,6 +43,15 @@
     <string name="storage">Storage</string>
     <string name="drive">Drive</string>
     <string name="to">To</string>
+    <string name="granted_scope">Granted Scopes</string>
+    <string name="id">Id</string>
+    <string name="idtoken">Id Token</string>
+    <string name="server_auth_code">Server Auth Code</string>
+    <string name="req_scope">Requested Scope</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_confirmation">Are you sure you want to delete</string>
 
 
     <string-array name="credential_categories">

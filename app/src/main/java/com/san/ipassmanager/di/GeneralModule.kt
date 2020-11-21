@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.san.ipassmanager.R
+import com.san.ipassmanager.interfaces.FragmentInterface
+import com.san.ipassmanager.retrofit.Api
 import com.san.ipassmanager.utils.Constants
 import com.san.ipassmanager.utils.SessionManager
 import dagger.Module
@@ -12,6 +14,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 
@@ -39,5 +42,6 @@ object GeneralModule {
             setColorSchemeColors(ContextCompat.getColor(context, R.color.secondaryColor))
             start()
         }
+
 
 }

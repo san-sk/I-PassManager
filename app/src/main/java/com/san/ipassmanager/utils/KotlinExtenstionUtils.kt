@@ -29,8 +29,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.signature.ObjectKey
 import com.san.ipassmanager.R
-import com.stfalcon.imageviewer.StfalconImageViewer
-import com.stfalcon.imageviewer.loader.ImageLoader
 import java.io.File
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -291,13 +289,13 @@ private fun loadImage(
 
 //check and open pdf file
 
-fun checkAndOpenFile(context: Context?, uri: Uri, transitionView: ImageView?) {
+/*fun checkAndOpenFile(context: Context?, uri: Uri, transitionView: ImageView?) {
 
     context?.let {
         val inflater = LayoutInflater.from(it)
-        /* val frescoView: View =
+        *//* val frescoView: View =
              inflater.inflate(R.layout.pdf_overlay_view, null)
- */
+ *//*
         val imageList = Utils.renderPdf(uri, it)
 
         StfalconImageViewer.Builder(context, imageList,
@@ -308,16 +306,16 @@ fun checkAndOpenFile(context: Context?, uri: Uri, transitionView: ImageView?) {
             .withStartPosition(0)
             .applyIf(transitionView != null) { withTransitionFrom(transitionView) }
             //.withOverlayView(frescoView)
-            /*.withImageChangeListener {
+            *//*.withImageChangeListener {
                 tv_pov_page_no?.text = "$it/$imageList.size.toString()"
                 tv_pov_title?.text = appointmentDetail.appointmentDate
                 fab_pov_share?.setOnClickListener {
                     IntentUtils.intentShareFile(requireActivity(), file)
                 }
-            }*/
+            }*//*
             .show()
 
     }
 
 
-}
+}*/

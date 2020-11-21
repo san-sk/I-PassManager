@@ -36,6 +36,7 @@ import com.san.ipassmanager.model.UserModel
 import com.san.ipassmanager.services.DriveHelper
 import com.san.ipassmanager.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import java.util.*
 import javax.inject.Inject
 
@@ -52,6 +53,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var gsa: GoogleSignInAccount
     private var typedPaswd: String? = null
+    private var userName: String? = null
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -90,6 +92,7 @@ class LoginFragment : Fragment() {
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
+                .requestProfile()
                 .requestScopes(Scope(DriveScopes.DRIVE_FILE))
                 .requestScopes(Scope(DriveScopes.DRIVE_APPDATA))
                 .build()
@@ -116,9 +119,14 @@ class LoginFragment : Fragment() {
 
         binding.mbtnFlSubmit.setOnClickListener {
 
-            if (binding.etPassword.text.toString().isNotEmpty()) {
+
+            if (binding.etPassword.text.toString().length == 14 &&
+                binding.etUsername.text.toString().isNotEmpty()
+            ) {
 
                 typedPaswd = binding.etPassword.text.toString()
+                userName = binding.etUsername.text.toString()
+
 
                 if (sessionManager.accountType == Constants.ONLINE) {
 
@@ -126,12 +134,13 @@ class LoginFragment : Fragment() {
 
                 } else {
                     BRUtils.createLocalBackupFile(requireContext())
+                    sessionManager.userName = userName
                     sessionManager.password = typedPaswd
                     findNavController().navigateUp()
                 }
 
             } else {
-                binding.etPassword.error = "Enter password"
+                binding.etPassword.error = "Password must be 14 characters"
             }
         }
     }
@@ -179,7 +188,7 @@ class LoginFragment : Fragment() {
 
             mGoogleSignInClient?.signOut()?.addOnCompleteListener(it,
                 OnCompleteListener<Void> {
-                    Toast.makeText(context, "Signed Out", Toast.LENGTH_LONG).show()
+                    Toasty.info(requireContext(), "Signed Out", Toast.LENGTH_LONG).show()
                 })
         }
 
@@ -197,8 +206,14 @@ class LoginFragment : Fragment() {
                 binding.loginLayout.makeGone()
                 binding.pwdLayout.makeVisible()
 
+                binding.etUsername.setText(acct.displayName)
+
             } else {
-                Toast.makeText(context, "Google sign in with firebase failed:(", Toast.LENGTH_LONG)
+                Toasty.error(
+                    requireContext(),
+                    "Google sign in with firebase failed:(",
+                    Toast.LENGTH_LONG
+                )
                     .show()
             }
         }
@@ -224,8 +239,8 @@ class LoginFragment : Fragment() {
 
             usersRef.child(acct.id.toString()).setValue(user)
                 .addOnSuccessListener {
-                    Toast.makeText(
-                        context,
+                    Toasty.success(
+                        requireContext(),
                         "Google sign in with firebase success:",
                         Toast.LENGTH_LONG
                     )
@@ -234,8 +249,8 @@ class LoginFragment : Fragment() {
                     findNavController().navigateUp()
                 }
                 .addOnFailureListener {
-                    Toast.makeText(
-                        context,
+                    Toasty.error(
+                        requireContext(),
                         "Google sign in with firebase failed:",
                         Toast.LENGTH_LONG
                     )
@@ -257,6 +272,7 @@ class LoginFragment : Fragment() {
                     val user = snapshot.getValue(UserModel::class.java)
 
                     if (pwd == user?.password) {
+                        sessionManager.userName = user.username
                         sessionManager.password = user.password
                         sessionManager.driveFileId = user.driveFileId
 
@@ -266,8 +282,8 @@ class LoginFragment : Fragment() {
 
                     } else {
 
-                        Toast.makeText(
-                            context,
+                        Toasty.error(
+                            requireContext(),
                             "Google sign in with firebase failed incorrect password",
                             Toast.LENGTH_LONG
                         ).show()
@@ -275,14 +291,15 @@ class LoginFragment : Fragment() {
 
 
                 } else {
+                    sessionManager.userName = userName
                     sessionManager.password = typedPaswd
                     registerUser(acct)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    context,
+                Toasty.error(
+                    requireContext(),
                     " firebase database error",
                     Toast.LENGTH_LONG
                 ).show()
@@ -315,9 +332,15 @@ class LoginFragment : Fragment() {
             .addOnSuccessListener {
                 sessionManager.driveFileId = it
                 Log.i("DriveFileID", it)
+                Toasty.success(
+                    requireContext(),
+                    "Drive file created successfully",
+                    Toast.LENGTH_LONG
+                ).show()
             }
             .addOnFailureListener {
-                Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                Toasty.error(requireContext(), "Failed to create drive file", Toast.LENGTH_LONG)
+                    .show()
                 Log.e("DriveFileID", it.toString())
             }
 

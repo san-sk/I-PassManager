@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,6 +22,7 @@ import com.san.ipassmanager.utils.Constants
 import com.san.ipassmanager.utils.SessionManager
 import com.san.ipassmanager.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -95,16 +97,16 @@ class CUCredentialFragment : Fragment() {
 
         if (args.purpose == Constants.UPDATE) {
             args.credential?.let {
-                binding.credentialType?.setSelection(credentialTypeArrayAdapter!!.getPosition(args.credential?.credentialType))
+                binding.credentialType.setSelection(credentialTypeArrayAdapter!!.getPosition(args.credential?.credentialType))
                 binding.etAddName.setText(it.name)
                 binding.etAddWebsiteLink.setText(it.websiteLink)
                 binding.etAddEmailId.setText(it.emailId)
-                binding.etDeviceName?.setText(it.deviceName)
+                binding.etDeviceName.setText(it.deviceName)
                 binding.etSsid.setText(it.ssid)
                 binding.etPlatformName.setText(it.platformName)
                 binding.etAddUsername.setText(it.userName)
                 binding.etAddPassword.setText(it.password)
-                binding.etAddMobileNo?.setText(it.mobileNo)
+                binding.etAddMobileNo.setText(it.mobileNo)
                 binding.etAddDesc.setText(it.description)
 
             }
@@ -113,30 +115,36 @@ class CUCredentialFragment : Fragment() {
 
         binding.mbtnFdcSubmit.setOnClickListener {
 
-            credentialEntity.apply {
-                credentialType = binding.credentialType?.selectedItem.toString()
-                name = binding.etAddName.text.toString()
-                emailId = binding.etAddEmailId.text.toString()
-                websiteLink = binding.etAddWebsiteLink.text.toString()
-                platformName = binding.etPlatformName.text.toString()
-                ssid = binding.etSsid.text.toString()
-                deviceName = binding.etSsid.text.toString()
-                userName = binding.etAddUsername.text.toString()
-                password = binding.etAddPassword.text.toString()
-                mobileNo = binding.etAddMobileNo?.text.toString()
-                description = binding.etAddDesc.text.toString()
-            }
 
-            when (args.purpose) {
+            if (binding.etAddName.toString().isNotEmpty()) {
 
-                Constants.CREATE -> {
-                    addCredentials()
+
+                credentialEntity.apply {
+                    credentialType = binding.credentialType.selectedItem.toString()
+                    name = binding.etAddName.text.toString()
+                    emailId = binding.etAddEmailId.text.toString()
+                    websiteLink = binding.etAddWebsiteLink.text.toString()
+                    platformName = binding.etPlatformName.text.toString()
+                    ssid = binding.etSsid.text.toString()
+                    deviceName = binding.etSsid.text.toString()
+                    userName = binding.etAddUsername.text.toString()
+                    password = binding.etAddPassword.text.toString()
+                    mobileNo = binding.etAddMobileNo.text.toString()
+                    description = binding.etAddDesc.text.toString()
                 }
-                Constants.UPDATE -> {
-                    updateCredentials()
-                }
-            }
 
+                when (args.purpose) {
+
+                    Constants.CREATE -> {
+                        addCredentials()
+                    }
+                    Constants.UPDATE -> {
+                        updateCredentials()
+                    }
+                }
+            } else {
+                Toasty.warning(requireContext(), "Name is required", Toast.LENGTH_LONG).show()
+            }
 
         }
 

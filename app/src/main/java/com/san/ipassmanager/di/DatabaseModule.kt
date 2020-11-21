@@ -34,6 +34,7 @@ object DatabaseModule {
     }
 
 
+    @Singleton
     @Provides
     fun provideCredentialDao(database: CredentialsDatabase): AllCredentialDao = database.credentialDao()
 

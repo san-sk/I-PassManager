@@ -75,7 +75,7 @@ object NetworkModule {
 
         return OkHttpClient.Builder()
             .cache(cache)
-            //.addInterceptor(headerInterceptor)
+            .addInterceptor(headerInterceptor)
             .addInterceptor(loggingInterceptor)
             .build()
     }

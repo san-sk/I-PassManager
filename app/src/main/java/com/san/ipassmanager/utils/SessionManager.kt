@@ -18,6 +18,14 @@ class SessionManager(private val prefs: SharedPreferences) {
             prefs.edit().putString("userId", userId).apply()
         }
 
+    var userName: String?
+        get() {
+            return prefs.getString("userName", "Anonymous")
+        }
+        set(userName) {
+            prefs.edit().putString("userName", userName).apply()
+        }
+
     var password: String?
         get() {
             return prefs.getString("password", null)

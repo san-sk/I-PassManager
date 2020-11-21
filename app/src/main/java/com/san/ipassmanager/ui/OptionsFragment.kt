@@ -40,8 +40,8 @@ class OptionsFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-        
+
+
         binding.tvFoBackup.setOnClickListener {
 
             findNavController().navigate(
@@ -62,6 +62,8 @@ class OptionsFragment : BottomSheetDialogFragment() {
         }
 
         binding.tvFoProfile.setOnClickListener {
+
+            findNavController().navigate(OptionsFragmentDirections.actionOptionsFragmentToProfileFragment())
 
         }
 

@@ -9,10 +9,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.Scope
 import com.google.api.services.drive.DriveScopes
+import com.google.api.services.drive.model.User
 import com.san.ipassmanager.R
+import com.san.ipassmanager.model.UserModel
 import com.san.ipassmanager.repository.CredentialRepository
 import com.san.ipassmanager.room.database.CredentialsDatabase
 import com.san.ipassmanager.room.entity.AllCredentialEntity
+import com.san.ipassmanager.utils.Constants
 import com.san.ipassmanager.utils.SessionManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +48,44 @@ class CommonViewModel @ViewModelInject constructor(
 
     fun isLoggedIn() =
         GoogleSignIn.getLastSignedInAccount(context)?.account != null && sessionManager.driveFileId != null
+
+
+    fun getUserDetails(): UserModel? {
+
+        var user: UserModel? = null
+
+        when (sessionManager.accountType) {
+
+            Constants.LOCAL -> {
+
+                user = UserModel(
+                    username = sessionManager.userName,
+                    password = sessionManager.password
+                )
+
+            }
+
+            Constants.ONLINE -> {
+                val acct = GoogleSignIn.getLastSignedInAccount(context)
+                user = UserModel(
+                    email = acct?.email,
+                    username = sessionManager.userName,
+                    password = sessionManager.password,
+                    driveFileId = sessionManager.driveFileId,
+                    grantedScopes = acct?.grantedScopes.toString(),
+                    requestedScopes = acct?.requestedScopes.toString(),
+                    id = acct?.id,
+                    idToken = acct?.idToken,
+                    serverAuthCode = acct?.serverAuthCode,
+                    photoUrl = acct?.photoUrl.toString(),
+                    isExpired = acct?.isExpired
+                )
+            }
+        }
+
+        return user
+
+    }
 
     fun logOut() {
 

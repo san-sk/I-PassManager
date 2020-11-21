@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -11,75 +10,75 @@
 
     </data>-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.credentials.SearchFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.credentials.SearchFragment">
 
-        <include
-            android:id="@+id/fs_toolbar"
-            layout="@layout/layout_toolbar_normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/fs_toolbar"
+        layout="@layout/layout_toolbar_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <SearchView
-            android:id="@+id/sv_fs"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:background="?attr/colorOnPrimary"
-            android:iconifiedByDefault="false"
-            android:inputType="textCapWords"
-            android:queryHint="Search"
-            android:scrollbars="none"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <SearchView
+        android:id="@+id/sv_fs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="?attr/colorOnPrimary"
+        android:iconifiedByDefault="false"
+        android:inputType="textCapWords"
+        android:queryHint="Search"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/clpb_fs"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:elevation="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_fs_credentials"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rv_fs_credentials" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_fs_credentials"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="4dp"
-            android:padding="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/sv_fs"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fs_toolbar"
-            tools:itemCount="6"
-            tools:listitem="@layout/row_credential" />
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/clpb_fs"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_fs_credentials"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_fs_credentials" />
 
 
-        <TextView
-            android:id="@+id/tv_sf_error"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/colorInfo"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_fs_credentials"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rv_fs_credentials"
-            tools:text="No Records Found" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_fs_credentials"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="4dp"
+        android:padding="8dp"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/sv_fs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fs_toolbar"
+        tools:itemCount="6"
+        tools:listitem="@layout/row_credential" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-<!--
+
+    <TextView
+        android:id="@+id/tv_sf_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorInfo"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_fs_credentials"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_fs_credentials"
+        tools:text="No Records Found" />
+
+</androidx.constraintlayout.widget.ConstraintLayout><!--
 </layout>-->

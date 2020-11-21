@@ -109,10 +109,18 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_optionsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </dialog>
     <fragment
         android:id="@+id/settingsContainerFragment"
         android:name="com.san.ipassmanager.ui.settings.SettingsContainerFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings_container" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.san.ipassmanager.ui.account.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

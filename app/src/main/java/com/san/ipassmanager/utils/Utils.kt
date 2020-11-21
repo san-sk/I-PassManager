@@ -26,14 +26,17 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.squareup.moshi.Moshi
-import com.yalantis.ucrop.UCrop
 import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
 import java.io.IOException
+import java.net.FileNameMap
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -99,7 +102,6 @@ object Utils {
     private val perms = arrayOf("android.permission.READ_EXTERNAL_STORAGE")
 
 
-
     fun checkFileSize(file: File?, length: Long): Boolean =
         file != null && file.length() <= length
 
@@ -110,33 +112,12 @@ object Utils {
     val todaysDateString: String
         get() = serverDateFormat.format(Calendar.getInstance().time)
 
-    /*fun getErrorBody(response: Response<*>): ErrorBody {
-        try {
-
-            return Gson().fromJson(response.errorBody()?.charStream(), ErrorBody::class.java)
-        } catch (e:JsonSyntaxException){
-            return ErrorBody(500, "Server down for maintenance. Please try again later.")
-        }
-    }*/
 
     fun hideKeyboardFrom(context: Context, view: View) {
         val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    /* fun getSpannedFromHtmlString(htmlString: String?): Spanned {
-         return htmlString?.let {
-
-             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
-                 Html.fromHtml(it, Html.FROM_HTML_MODE_COMPACT)
-
-             } else {
-
-                 Html.fromHtml(it)
-             }
-         } ?: "".toSpanned()
-     }*/
 
     fun showDialog(
         activity: Activity,
@@ -158,29 +139,6 @@ object Utils {
         //int height = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
         window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
-
-    /* fun showMessageDialog(context: Context, message: String, tag:String) {
-
-         val fragmentActivity = context as FragmentActivity
-
-         val bundle = Bundle()
-         bundle.putString("message", message)
-
-         val genericMessageDialogFragment = progressDialogFragment()
-         genericMessageDialogFragment.arguments = bundle
-         genericMessageDialogFragment.isCancelable = false
-         genericMessageDialogFragment.show(fragmentActivity.supportFragmentManager, tag)
-
-         fragmentActivity.supportFragmentManager.executePendingTransactions()
-
-         val window = genericMessageDialogFragment.dialog?.window
-         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-         val width = (fragmentActivity.resources.displayMetrics.widthPixels * 0.90).toInt()
-         //int height = (int)(getResources().getDisplayMetrics().heightPixels*0.90);
-         window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
-
-     }*/
 
 
     fun getDisplayDateFromTimestamp(timestamp: String): String {
@@ -430,7 +388,6 @@ object Utils {
     }
 
 
-
     fun checkIfValidDate(startDate: String, endDate: String): Int {
 
         var fromDate: Date? = null
@@ -465,7 +422,6 @@ object Utils {
         val simpledateformat = SimpleDateFormat("EEEE")
         return simpledateformat.format(date)
     }
-
 
 
     fun clearBubbleSharedPrefHints(context: Context) {
@@ -522,7 +478,7 @@ object Utils {
 
     }
 
-    fun renderPdf(uri:Uri, context: Context): List<Bitmap> {
+    fun renderPdf(uri: Uri, context: Context): List<Bitmap> {
         val bitmaps = arrayListOf<Bitmap>()
         context.contentResolver.openFileDescriptor(uri, "r")?.let {
             // create a new renderer
@@ -558,7 +514,6 @@ object Utils {
     }
 
 
-
     fun getRandomColorCode(): Int {
         val random = Random()
         return Color.argb(
@@ -570,14 +525,14 @@ object Utils {
     }
 
 
-    fun cropWithUCrop(context: Context?, uri: Uri, fragment: Fragment) {
+    /*fun cropWithUCrop(context: Context?, uri: Uri, fragment: Fragment) {
         context?.let {
             UCrop.of(uri, Uri.fromFile(createImageFile(it)))
                 .withAspectRatio(1f, 1f)
                 .withMaxResultSize(300, 300)
                 .start(it, fragment)
         }
-    }
+    }*/
 
 
     @Throws(IOException::class)
@@ -621,6 +576,12 @@ object Utils {
         }
 
     }
+
+
+    fun getImage(view: View): Bitmap {
+        return view.drawToBitmap()
+    }
+
 
 }
 

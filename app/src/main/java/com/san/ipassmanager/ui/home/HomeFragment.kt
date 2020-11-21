@@ -17,7 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.chip.Chip
 import com.san.ipassmanager.R
-import com.san.ipassmanager.adapter.CredentialsAdapter
+import com.san.ipassmanager.ui.adapter.CredentialsAdapter
 import com.san.ipassmanager.databinding.FragmentHomeBinding
 import com.san.ipassmanager.retrofit.Resource
 import com.san.ipassmanager.utils.*
@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
                 }
 
                 Constants.LOCAL -> {
-                    // binding.tvHfUserName.text = "Not signed in"
+                    sessionManager.userName = "User"
                 }
 
                 else -> {
@@ -93,8 +93,8 @@ class HomeFragment : Fragment() {
             setupActionBarWithNavController(it, findNavController())
         }
 
-        binding.tvHfUserName.text = "Welcome\n  ${gsa?.displayName ?: ""}"
-        test()
+        binding.tvHfUserName.text = "Welcome\n  ${gsa?.displayName ?: sessionManager.userName}"
+      //  test()
 
         val categoryList = resources.getStringArray(R.array.credential_categories).toList()
         categoryList.forEach {
@@ -222,13 +222,13 @@ class HomeFragment : Fragment() {
             context?.let {
                 chip.setTextColor(
                     ContextCompat.getColor(
-                        it, R.color.colorBlack
+                        it, R.color.colorWhite
                     )
                 )
             }
 
 
-            chip.setChipBackgroundColorResource(R.color.colorWhiteLowAlpha)
+            chip.setChipBackgroundColorResource(R.color.secondaryLightColor)
 
             chip.setCloseIconTintResource(R.color.colorError)
 

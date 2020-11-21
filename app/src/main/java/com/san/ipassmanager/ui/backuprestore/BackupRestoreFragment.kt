@@ -25,6 +25,7 @@ import com.san.ipassmanager.services.DriveHelper
 import com.san.ipassmanager.ui.CommonViewModel
 import com.san.ipassmanager.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import java.io.File
 import java.util.*
 import javax.inject.Inject
@@ -171,7 +172,7 @@ class BackupRestoreFragment : Fragment() {
 
     private fun backupCredentials(isLocal: Boolean) {
 
-        binding.clpbFbr.show()
+        binding.clpbFbr.makeVisible()
 
         viewModel.allCredentials.observe(viewLifecycleOwner, Observer { credentials ->
 
@@ -188,7 +189,9 @@ class BackupRestoreFragment : Fragment() {
                                 localBackup.apply { writeText(bs) }
                             }
 
-                            binding.clpbFbr.hide()
+                            binding.clpbFbr.makeGone()
+                            Toasty.success(requireContext(), "Backup success", Toast.LENGTH_LONG)
+                                .show()
                             findNavController().navigate(BackupRestoreFragmentDirections.actionBackupRestoreFragmentToHomeFragment())
 
                         } else {
@@ -200,7 +203,8 @@ class BackupRestoreFragment : Fragment() {
                     Log.w(Constants.TAG, encryptedData.orEmpty())
 
                 } else {
-                    binding.clpbFbr.hide()
+                    binding.clpbFbr.makeGone()
+                    Toasty.error(requireContext(), "No data found", Toast.LENGTH_LONG).show()
                     Log.e(tag, "no data")
 
                 }
@@ -213,22 +217,32 @@ class BackupRestoreFragment : Fragment() {
 
     private fun restoreCredentials(encryptedData: String?) {
 
-        binding.clpbFbr.show()
-        if (encryptedData != null) {
+        binding.clpbFbr.makeVisible()
+        if (!encryptedData.isNullOrEmpty()) {
 
             val backupEntity = BRUtils.restore(sessionManager.password.orEmpty(), encryptedData)
 
-            Log.w("restore", backupEntity.toString())
-
-            backupEntity?.let {
-                commonViewModel.insertList(it)
-                binding.clpbFbr.hide()
-                findNavController().navigate(BackupRestoreFragmentDirections.actionBackupRestoreFragmentToHomeFragment())
+            if (backupEntity != null) {
+                Log.w("restore", backupEntity.toString())
+                backupEntity.let {
+                    commonViewModel.insertList(it)
+                    binding.clpbFbr.makeGone()
+                    findNavController().navigate(BackupRestoreFragmentDirections.actionBackupRestoreFragmentToHomeFragment())
+                }
+                Toasty.success(requireContext(), "Restore Success", Toast.LENGTH_LONG).show()
+            } else {
+                binding.clpbFbr.makeGone()
+                Toasty.error(
+                    requireContext(),
+                    "Wrong password for this backup",
+                    Toast.LENGTH_LONG
+                ).show()
             }
 
+
         } else {
-            binding.clpbFbr.hide()
-            Toast.makeText(context, "Backup is empty", Toast.LENGTH_LONG).show()
+            binding.clpbFbr.makeGone()
+            Toasty.warning(requireContext(), "Backup is empty", Toast.LENGTH_LONG).show()
 
         }
 
@@ -257,7 +271,7 @@ class BackupRestoreFragment : Fragment() {
 
     private fun uploadBackupToDrive(jsonString: String) {
 
-        binding.clpbFbr.show()
+        binding.clpbFbr.makeVisible()
         driveInit()
 
         Log.i("Drive", "backup Init")
@@ -268,25 +282,24 @@ class BackupRestoreFragment : Fragment() {
                 Constants.APP_NAME + ".json",
                 jsonString
             ).addOnSuccessListener {
-                Toast.makeText(context, "success", Toast.LENGTH_LONG).show()
+                Toasty.success(requireContext(), "Backup success", Toast.LENGTH_LONG).show()
                 Log.i("Drive", "Backup success")
 
                 findNavController().navigate(BackupRestoreFragmentDirections.actionBackupRestoreFragmentToHomeFragment())
-                binding.clpbFbr.hide()
+                binding.clpbFbr.makeGone()
 
             }
                 .addOnFailureListener {
-                    Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                    Toasty.error(requireContext(), "Backup Failed", Toast.LENGTH_LONG).show()
                     Log.e("Drive", it.toString())
-                    Log.i("Drive", "Backup Fail")
-                    binding.clpbFbr.hide()
+                    binding.clpbFbr.makeGone()
                 }
         }
     }
 
     private fun downloadBackupFromDrive() {
 
-        binding.clpbFbr.show()
+        binding.clpbFbr.makeVisible()
         driveInit()
         Log.i("Drive", "download backup init")
         //  fragmentInterface?.setProgressBarVisible(true)
@@ -297,21 +310,21 @@ class BackupRestoreFragment : Fragment() {
                     //   fragmentInterface?.setProgressBarVisible(false)
                     it.second.let { backup ->
 
-                        binding.clpbFbr.hide()
+                        binding.clpbFbr.makeGone()
 
                         restoreCredentials(backup)
 
                     }
 
-                    //Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                    // Toasty.success(requireContext(), "Restore Success", Toast.LENGTH_LONG).show()
                     Log.i("Drive", it.second)
                     Log.i("Drive", "restore success")
                 }
                 ?.addOnFailureListener {
                     //   fragmentInterface?.setProgressBarVisible(false)
-                    // Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                    Toasty.error(requireContext(), "Restore Failed", Toast.LENGTH_LONG).show()
                     Log.e("Drive", it.toString())
-                    binding.clpbFbr.hide()
+                    binding.clpbFbr.makeGone()
                 }
 
         }

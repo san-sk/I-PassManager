@@ -12,16 +12,19 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.san.ipassmanager.adapter.CredentialsAdapter
+import com.san.ipassmanager.ui.adapter.CredentialsAdapter
 import com.san.ipassmanager.databinding.FragmentSearchBinding
+import com.san.ipassmanager.interfaces.FragmentInterface
 import com.san.ipassmanager.utils.makeInVisible
 import com.san.ipassmanager.utils.makeVisible
+import dagger.hilt.EntryPoints
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.android.synthetic.main.row_credential.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class SearchFragment() : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
 
@@ -29,6 +32,13 @@ class SearchFragment : Fragment() {
 
     @Inject
     lateinit var credentialsAdapter: CredentialsAdapter
+
+
+     private val fragmentInterface by lazy {
+         context?.let { it as FragmentInterface }
+     }
+
+    //private val fragmentInterface: FragmentInterface? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +60,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         (activity as? AppCompatActivity)?.let {
             it.setSupportActionBar(binding.fsToolbar.materialToolbar)
             NavigationUI.setupActionBarWithNavController(it, findNavController())
@@ -62,12 +73,14 @@ class SearchFragment : Fragment() {
 
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 binding.clpbFs.show()
+                //fragmentInterface?.setProgressBarVisible(true)
                 searchCredential(p0.orEmpty())
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 binding.clpbFs.show()
+//                fragmentInterface?.setProgressBarVisible(true)
                 searchCredential(newText.orEmpty())
                 return true
             }
@@ -96,6 +109,7 @@ class SearchFragment : Fragment() {
             .observe(viewLifecycleOwner, Observer { credentials ->
 
                 binding.clpbFs.hide()
+//                fragmentInterface?.setProgressBarVisible(false)
                 credentials?.let {
                     if (it.isNotEmpty()) {
                         binding.tvSfError.makeInVisible()

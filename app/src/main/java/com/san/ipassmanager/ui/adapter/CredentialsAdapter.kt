@@ -1,4 +1,4 @@
-package com.san.ipassmanager.adapter
+package com.san.ipassmanager.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,18 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.san.ipassmanager.R
+import com.san.ipassmanager.databinding.RowCredentialBinding
 import com.san.ipassmanager.room.entity.AllCredentialEntity
 import com.san.ipassmanager.utils.loadImage
-import kotlinx.android.synthetic.main.row_credential.view.*
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class CredentialsAdapter @Inject constructor() :
     ListAdapter<AllCredentialEntity, RecyclerView.ViewHolder>(AllCredentialDiffCallback()) {
 
-    private var originalList: List<AllCredentialEntity>? = null
-
+    private lateinit var binding: RowCredentialBinding
 
     private var credentialAdapterInterface: CredentialAdapterInterface? = null
 
@@ -31,21 +28,24 @@ class CredentialsAdapter @Inject constructor() :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ItemViewHolder(
+        /*return ItemViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.row_credential, parent, false)
-        )
+        )*/
+
+        binding = RowCredentialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        with(holder.itemView) {
+        with(binding) {
 
-            iv_cc_icon?.loadImage("https://${item.websiteLink}/favicon.ico")
-            tv_cc_name?.text = item.name
-            tv_cc_description?.text = item.description
+            ivCcIcon.loadImage("https://${item.websiteLink}/favicon.ico")
+            tvCcName.text = item.name
+            tvCcDescription.text = item.description
 
-            setOnClickListener {
+            root.setOnClickListener {
                 credentialAdapterInterface?.onCredentialClick(item)
             }
         }

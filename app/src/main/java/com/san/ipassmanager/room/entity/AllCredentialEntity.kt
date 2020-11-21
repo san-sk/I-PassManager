@@ -69,6 +69,10 @@ data class AllCredentialEntity(
 
     //social media
     @ColumnInfo(name = "social_media_platform_name")
-    var smPlatformName: String? = null
+    var smPlatformName: String? = null,
+
+    //image bytearryy
+    @ColumnInfo(name = "images")
+    var images: String? = null
 
 ) : Serializable

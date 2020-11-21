@@ -4,10 +4,11 @@
     <color name="primaryColor">#131313</color>
     <color name="primaryLightColor">#393939</color>
     <color name="primaryDarkColor">#000000</color>
+    <color name="colorOnPrimary">#5f7989</color>
 
-    <color name="secondaryColor">#fe9904</color>
-    <color name="secondaryLightColor">#ffca49</color>
-    <color name="secondaryDarkColor">#c56a00</color>
+    <color name="secondaryColor">#334d5c</color>
+    <color name="secondaryLightColor">#5f7989</color>
+    <color name="secondaryDarkColor">#072533</color>
 
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
